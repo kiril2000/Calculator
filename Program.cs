@@ -1,80 +1,119 @@
-﻿using System;
+using System;
 
 namespace Calculator
 {
     class Program
     {
-        private static double sqrt;
         static void Main(string[] args)
-
         {
-            double firstNum;
-            double secondNum;                   
-            string operation;
-            double result;
+            Console.WriteLine("Welcome to my Calculator");
+            Console.WriteLine("Please enter what to happen:");
 
-            Console.Write("Enter the first number: ");
-            firstNum = Convert.ToDouble(Console.ReadLine());
-          
-            Console.Write("Ok now enter your operation ( * , / , +, -, %, sqrt) ");
-            operation = Console.ReadLine();
+            Console.WriteLine("1. calculate");
+            Console.WriteLine("2. stop");
+            string rule = Console.ReadLine();
 
-            if (operation == "x")
+            while (rule != "stop")
             {
-                Console.Write("Now enter your second number: ");
-                secondNum = Convert.ToDouble(Console.ReadLine());
-                result = firstNum * secondNum;
-                Console.WriteLine(firstNum + " x " + secondNum + " = " + result);
-                Console.ReadLine();
-            }
-            else if (operation == "/")
-            {
-                Console.Write("Now enter your second number: ");
-                secondNum = Convert.ToDouble(Console.ReadLine());
-                Console.Write("Now enter your second number: ");
-                secondNum = Convert.ToDouble(Console.ReadLine());
-                result = firstNum / secondNum;
-                Console.WriteLine(firstNum + " / " + secondNum + " = " + result);
-                Console.ReadLine();
-            }
-            else if (operation == "+")
-            {
-                Console.Write("Now enter your second number: ");
-                secondNum = Convert.ToDouble(Console.ReadLine());
-                result = firstNum + secondNum;
-                Console.WriteLine(firstNum + " + " + secondNum + " = " + result);
-                Console.ReadLine();
-            }
-            else if (operation == "-")
-            {
-                Console.Write("Now enter your second number: ");
-                secondNum = Convert.ToDouble(Console.ReadLine());
-                result = firstNum - secondNum;
-                Console.WriteLine(firstNum + " - " + secondNum + " = " + result);
-                Console.ReadLine();
-            }
-            else if (operation =="%")
-            {
-                Console.Write("Now enter your second number: ");
-                secondNum = Convert.ToDouble(Console.ReadLine());
-                result = firstNum*secondNum/100;
-                Console.WriteLine(firstNum + " % " + secondNum + " = " + result);
-                Console.ReadLine();
+                if (rule != "calculate")
+                {
+                    rule = CreateRule();
+                    continue;
+                }
 
-            }
-            else if (operation == "sqrt")
-            {
+                Console.WriteLine();
+                Console.WriteLine("Please enter first number:");
+                double number = double.Parse(Console.ReadLine());
 
-                result =  sqrt ( firstNum);
-                Console.WriteLine(result);
-                Console.ReadLine();
+                Console.WriteLine($"{number}");
+                Console.WriteLine("-------------------------");
+                Console.WriteLine("Available Operations: ");
+                Console.WriteLine("1. +");
+                Console.WriteLine("2. *");
+                Console.WriteLine("3. -");
+                Console.WriteLine("4. /");
+                Console.WriteLine("5. sqr");
+                Console.WriteLine("6. sqrt");
+                Console.WriteLine("7. 1 / x");
+                Console.WriteLine("0. C");
 
+                Console.WriteLine();
+                Console.WriteLine("Please choose from the list. and enter the number of the command");
+
+                int command = 0;
+
+                if (!int.TryParse(Console.ReadLine(), out command))
+                {
+                    Console.WriteLine("You entered invalid command");
+
+                    rule = CreateRule();
+
+                    continue;
+                };
+
+                if (command >= 1 && command <= 4)
+                {
+                    Console.WriteLine("Please enter second number:");
+
+                    double number2 = double.Parse(Console.ReadLine());
+
+                    switch (command)
+                    {
+                        case 1:
+                            Console.WriteLine($"{number} + {number2} = {number + number2}");
+                            break;
+                        case 2:
+                            Console.WriteLine($"{number} * {number2} = {number * number2}");
+                            break;
+                        case 3:
+                            Console.WriteLine($"{number} - {number2} = {number - number2}");
+                            break;
+                        case 4:
+                            Console.WriteLine($"{number} / {number2} = {number / number2}");
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (command)
+                    {
+                        case 5:
+                            Console.WriteLine($"{Math.Pow(number, 2)}");
+                            break;
+                        case 6:
+                            Console.WriteLine($"{Math.Sqrt(number)}");
+                            break;
+                        case 7:
+                            Console.WriteLine($"{1 / number}");
+                            break;
+                        case 0:
+                            rule = CreateRule();
+                            continue;
+
+                        default:
+                            break;
+                    }
+                }
+
+                rule = CreateRule();
             }
-            else
-            {
-                Console.WriteLine("Sorry that is not correct format! Please restart!");     
-                Console.ReadLine();
-            }
+
+
+            
+
+
         }
+
+        private static string CreateRule()
+        {
+            Console.WriteLine("Please enter command (stop or calculate) :");
+
+            return  Console.ReadLine();
+        }
+
+        
     }
 }
